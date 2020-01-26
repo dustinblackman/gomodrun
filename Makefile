@@ -1,11 +1,11 @@
 .DEFAULT_GOAL := build
-VERSION := 0.0.1
+VERSION := 0.0.4
 
 build:
 	cd cmd/gomodrun && go build -o ../../gomodrun -ldflags="-X main.version=$(VERSION)"
 
 install:
-	cd cmd/gomodrun && go install
+	cd cmd/gomodrun && go install -ldflags="-X main.version=$(VERSION)"
 
 lint:
 	gomodrun golangci-lint run
@@ -14,6 +14,8 @@ lint-fix:
 	gomodrun golangci-lint run --fix
 
 release:
+	git tag -a "v$(VERSION)" -m "v$(VERSION)"
+	git push --tags
 	gomodrun goreleaser --rm-dist
 
 release-snapshot:
