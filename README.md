@@ -29,7 +29,7 @@ Install directly with `go get` or grab the latest [release](https://github.com/d
 
 gomodrun works by using a `tools.go` (or any other name) file that sits in the root of your project that contains all the CLI dependencies you want bundled in to your `go.mod`. Note the `// +build tools` at the top of the file is required, and allows you to name your tools file anything you like.
 
-_tools.go_
+__tools.go__
 
 ```go
 // +build tools
