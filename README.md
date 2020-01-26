@@ -42,11 +42,39 @@ import (
 )
 ```
 
-Run `go build tools.go` to add the dependencies to your `go.mod`. The build is expected to fail. Afterwards, you can run your tools by prefixing `gomodrun`. A binary will be built and cached in `.gomodrun` in the root of your project, allowing all runs after the first to be nice and fast.
+Run `go build tools.go` to add the dependencies to your `go.mod`. The build is expected to fail.
+
+### CLI
+
+You can run your tools by prefixing `gomodrun`. A binary will be built and cached in `.gomodrun` in the root of your project, allowing all runs after the first to be nice and fast.
 
 ```sh
   gomodrun golangci-lint run
 ```
+
+### Programmatically
+
+You can also use `gomodrun` as a library.
+
+```go
+package main
+
+import (
+	"os"
+
+	"github.com/dustinblackman/gomodrun"
+)
+
+func main() {
+	exitCode, err := gomodrun.Run("golangci-lint", []string{"run"}, gomodrun.Options{
+		Stdin:  os.Stdin,
+		Stdout: os.Stdout,
+		Stderr: os.Stderr,
+		Env:    os.Environ(),
+	})
+}
+```
+
 
 ## [License](./LICENSE)
 
