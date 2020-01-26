@@ -14,7 +14,7 @@ lint-fix:
 	gomodrun golangci-lint run --fix
 
 release:
-	gomodrun goreleaser
+	gomodrun goreleaser --rm-dist
 
 release-snapshot:
 	gomodrun goreleaser --snapshot --skip-publish --rm-dist
