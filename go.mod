@@ -8,6 +8,7 @@ require (
 	github.com/fatih/color v1.7.0
 	github.com/golangci/golangci-lint v1.23.1
 	github.com/goreleaser/goreleaser v0.124.1
+	github.com/mattn/goveralls v0.0.5
 	github.com/novln/macchiato v1.0.0
 	github.com/onsi/ginkgo v1.11.0
 	github.com/onsi/gomega v1.8.1
