@@ -2,4 +2,4 @@ gomodrun
 .gomodrun/
 *.tmp
 dist/
-cmd/gomodrun/dist
+cmd/gomodrun/dist/

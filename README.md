@@ -9,7 +9,7 @@ The forgotten go tool that executes and caches binaries included in go.mod files
   gomodrun golangci-lint run
 
   # Convert a JSON object to a Go struct, properly passing in stdin.
-	echo example.json | gomodrun gojson > example.go
+  echo example.json | gomodrun gojson > example.go
 ```
 
 ## Usage
