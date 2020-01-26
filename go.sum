@@ -85,8 +85,8 @@ github.com/dimchansky/utfbom v1.1.0 h1:FcM3g+nofKgUteL8dm/UpdRXNC9KmADgTpLKsu0TR
 github.com/dimchansky/utfbom v1.1.0/go.mod h1:rO41eb7gLfo8SF1jd9F8HplJm1Fewwi4mQvIirEdv+8=
 github.com/dustinblackman/go-hello-world-test v0.0.1 h1:7VyG01Yxo3MyEofPv7dYPmoX0ArqRyYduB6IB64ZH9A=
 github.com/dustinblackman/go-hello-world-test v0.0.1/go.mod h1:wbYSnWUoM4tqbraqvRvVuK6jV7YV4Gv+d/lTltepZyA=
-github.com/dustinblackman/go-hello-world-test-no-gomod v0.0.1 h1:CyarHBERDerULy+MM7PF6Xi81IYflNejJYt6kWvsS6Y=
-github.com/dustinblackman/go-hello-world-test-no-gomod v0.0.1/go.mod h1:gp0E7D1LcpcXdGgVpmD9dcjQUAD4ah1Asil+ptJt8a4=
+github.com/dustinblackman/go-hello-world-test-no-gomod v0.0.2 h1:Eu6DQ8Fag75ZPs7CiuFrlq0y8+a2wnZZhJaUWv8MSFg=
+github.com/dustinblackman/go-hello-world-test-no-gomod v0.0.2/go.mod h1:gp0E7D1LcpcXdGgVpmD9dcjQUAD4ah1Asil+ptJt8a4=
 github.com/fatih/color v1.7.0 h1:DkWD4oS2D8LGGgTQ6IvwJJXSL5Vp2ffcQg58nFV38Ys=
 github.com/fatih/color v1.7.0/go.mod h1:Zm6kSWBoL9eyXnKyktHP6abPY2pDugNf5KwzbycvMj4=
 github.com/fortytw2/leaktest v1.2.0/go.mod h1:jDsjWgpAGjm2CA7WthBh/CdZYEPF31XHquHwclZch5g=

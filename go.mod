@@ -4,7 +4,7 @@ go 1.13
 
 require (
 	github.com/dustinblackman/go-hello-world-test v0.0.1
-	github.com/dustinblackman/go-hello-world-test-no-gomod v0.0.1
+	github.com/dustinblackman/go-hello-world-test-no-gomod v0.0.2
 	github.com/fatih/color v1.7.0
 	github.com/golangci/golangci-lint v1.23.1
 	github.com/goreleaser/goreleaser v0.124.1
