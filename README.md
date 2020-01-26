@@ -12,6 +12,12 @@ The forgotten go tool that executes and caches binaries included in go.mod files
   echo example.json | gomodrun gojson > example.go
 ```
 
+## Installation
+
+```sh
+  go get -u github.com/dustinblackman/gomodrun/cmd/gomodrun
+```
+
 ## Usage
 
 gomodrun works by using a `tools.go` (or any other name) file that sits in the root of your project that contains all the CLI dependencies you want bundled in to your `go.mod`. Note the `// +build tools` at the top of the file is required, and allows you to name your tools file anything you like.
