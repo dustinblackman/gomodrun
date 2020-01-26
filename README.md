@@ -1,4 +1,4 @@
-# gomodrun
+![gomodrun](assets/banner.jpg)
 
 [![Build Status](https://travis-ci.org/dustinblackman/gomodrun.svg?branch=master)](https://travis-ci.org/dustinblackman/gomodrun)
 [![Coverage Status](https://coveralls.io/repos/github/dustinblackman/gomodrun/badge.svg?branch=master)](https://coveralls.io/github/dustinblackman/gomodrun?branch=master)
