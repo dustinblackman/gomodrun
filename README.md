@@ -1,5 +1,9 @@
 # gomodrun
 
+[![Build Status](https://travis-ci.com/dustinblackman/gomodrun.svg?branch=master)](https://travis-ci.com/dustinblackman/gomodrun)
+[![Go Report Card](http://goreportcard.com/badge/dustinblackman/gomodrun)](http://goreportcard.com/report/dustinblackman/gomodrun)
+[![Godocs](https://godoc.org/github.com/dustinblackman/gomodrun?status.svg)](https://godoc.org/github.com/dustinblackman/gomodrun)
+
 The forgotten go tool that executes and caches binaries included in go.mod files. This makes it easy to version cli tools in your projects such as `golangci-lint` and `ginkgo`.
 
 ## Example
