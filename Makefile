@@ -8,7 +8,7 @@ install:
 	cd cmd/gomodrun && go install -ldflags="-X main.version=$(VERSION)"
 
 lint:
-	gomodrun golangci-lint run -v
+	gomodrun golangci-lint run
 
 lint-fix:
 	gomodrun golangci-lint run --fix

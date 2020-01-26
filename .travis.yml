@@ -6,9 +6,10 @@ go:
 cache:
   directories:
     - .gomodrun/
+    - /home/travis/gopath/pkg/mod/
 install:
-  - go get -u github.com/dustinblackman/gomodrun/cmd/gomodrun
   - go mod download
+  - GO111MODULE=off go get -u github.com/dustinblackman/gomodrun/cmd/gomodrun
 script:
  - make lint
  - make test

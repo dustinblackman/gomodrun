@@ -34,24 +34,49 @@ var _ = Describe("pkg", func() {
 	})
 
 	Context("GetCachedBin", func() {
-		It("should return the bin path when it does not exist in cache", func() {
-			cwd, _ := os.Getwd()
-			goVersionOutput, _ := exec.Command("go", "version").Output()
-			goVersion := strings.Split(string(goVersionOutput), " ")[2]
-			os.RemoveAll(path.Join(".gomodrun", goVersion, "github.com/dustinblackman"))
+		Context("with go.mod", func() {
+			It("should return the bin path when it does not exist in cache", func() {
+				cwd, _ := os.Getwd()
+				goVersionOutput, _ := exec.Command("go", "version").Output()
+				goVersion := strings.Split(string(goVersionOutput), " ")[2]
+				os.RemoveAll(path.Join(".gomodrun", goVersion, "github.com/dustinblackman"))
 
-			binPath, err := gomodrun.GetCachedBin(cwd, "hello-world", testPackage)
-			Expect(err).To(BeNil())
-			Expect(binPath).To(ContainSubstring(testPackage))
-			Expect(binPath).To(ContainSubstring(".gomodrun"))
+				binPath, err := gomodrun.GetCachedBin(cwd, "hello-world", testPackage)
+				Expect(err).To(BeNil())
+				Expect(binPath).To(ContainSubstring(testPackage))
+				Expect(binPath).To(ContainSubstring(".gomodrun"))
+			})
+
+			It("should return the bin path when it exists in cache", func() {
+				cwd, _ := os.Getwd()
+				binPath, err := gomodrun.GetCachedBin(cwd, "hello-world", testPackage)
+				Expect(err).To(BeNil())
+				Expect(binPath).To(ContainSubstring(testPackage))
+				Expect(binPath).To(ContainSubstring(".gomodrun"))
+			})
 		})
 
-		It("should return the bin path when it exists in cache", func() {
-			cwd, _ := os.Getwd()
-			binPath, err := gomodrun.GetCachedBin(cwd, "hello-world", testPackage)
-			Expect(err).To(BeNil())
-			Expect(binPath).To(ContainSubstring(testPackage))
-			Expect(binPath).To(ContainSubstring(".gomodrun"))
+		Context("without go.mod", func() {
+			It("should return the bin path when it does not exist in cache", func() {
+				cwd, _ := os.Getwd()
+				goVersionOutput, _ := exec.Command("go", "version").Output()
+				goVersion := strings.Split(string(goVersionOutput), " ")[2]
+				os.RemoveAll(path.Join(".gomodrun", goVersion, "github.com/dustinblackman"))
+
+				binPath, err := gomodrun.GetCachedBin(cwd, "hello-world-no-gomod", testPackage)
+				Expect(err).To(BeNil())
+				Expect(binPath).To(ContainSubstring(testPackage))
+				Expect(binPath).To(ContainSubstring(".gomodrun"))
+			})
+
+			It("should return the bin path when it exists in cache", func() {
+				cwd, _ := os.Getwd()
+				binPath, err := gomodrun.GetCachedBin(cwd, "hello-world-no-gomod", testPackage)
+				Expect(err).To(BeNil())
+				Expect(binPath).To(ContainSubstring(testPackage))
+				Expect(binPath).To(ContainSubstring(".gomodrun"))
+			})
+
 		})
 	})
 })

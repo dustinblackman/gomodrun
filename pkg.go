@@ -13,6 +13,7 @@ import (
 	"strings"
 	"syscall"
 
+	"github.com/otiai10/copy"
 	"github.com/sirkon/goproxy/gomod"
 )
 
@@ -92,6 +93,9 @@ func GetCommandVersionedPkgPath(pkgRoot, binName string) (string, error) {
 
 // GetCachedBin returns the path to the cached binary, building it if it doesn't exist.
 func GetCachedBin(pkgRoot, binName, cmdPath string) (string, error) {
+	// Delete source root if it was copied to a temp folder.
+	deleteSrcRoot := false
+
 	goVersionOutput, err := exec.Command("go", "version").Output()
 	if err != nil {
 		return "", err
@@ -118,12 +122,30 @@ func GetCachedBin(pkgRoot, binName, cmdPath string) (string, error) {
 
 		if _, err := os.Stat(path.Join(moduleSrcRoot, "go.mod")); os.IsNotExist(err) {
 			pkgName := strings.Split(strings.Split(moduleSrcRoot, "pkg/mod/")[1], "@")[0]
+			tempDir, err := ioutil.TempDir("", binName)
+			if err != nil {
+				return "", err
+			}
+
+			err = copy.Copy(moduleSrcRoot, tempDir)
+			if err != nil {
+				return "", err
+			}
+
+			err = os.Chmod(tempDir, 0777)
+			if err != nil {
+				return "", err
+			}
+
 			cmd := exec.Command("go", "mod", "init", pkgName)
-			cmd.Dir = moduleSrcRoot
+			cmd.Dir = tempDir
 			output, err := cmd.CombinedOutput()
 			if err != nil {
 				return "", fmt.Errorf("initializing modules %s go.mod failed: %s", pkgName, output)
 			}
+
+			moduleBinSrcPath = strings.ReplaceAll(moduleBinSrcPath, moduleSrcRoot, tempDir)
+			deleteSrcRoot = true
 		}
 
 		err := os.MkdirAll(path.Dir(cachedBin), os.ModePerm)
@@ -136,6 +158,13 @@ func GetCachedBin(pkgRoot, binName, cmdPath string) (string, error) {
 		output, err := cmd.CombinedOutput()
 		if err != nil {
 			return "", fmt.Errorf("building %s failed: %s", binName, output)
+		}
+
+		if deleteSrcRoot {
+			err = os.RemoveAll(moduleSrcRoot)
+			if err != nil {
+				return "", err
+			}
 		}
 	}
 
