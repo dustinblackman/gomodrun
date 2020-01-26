@@ -1,0 +1,14 @@
+language: go
+
+go:
+- 1.13
+
+cache:
+  directories:
+    - .gomodrun/
+install:
+  - go get -u github.com/dustinblackman/gomodrun/cmd/gomodrun
+  - go mod download
+script:
+ - make lint
+ - make test
