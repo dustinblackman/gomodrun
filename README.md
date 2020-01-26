@@ -19,6 +19,8 @@ The forgotten go tool that executes and caches binaries included in go.mod files
 
 ## Installation
 
+Install directly with `go get` or grab the latest [release](https://github.com/dustinblackman/gomodrun/releases).
+
 ```sh
   go get -u github.com/dustinblackman/gomodrun/cmd/gomodrun
 ```
