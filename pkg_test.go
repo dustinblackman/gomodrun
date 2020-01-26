@@ -76,7 +76,6 @@ var _ = Describe("pkg", func() {
 				Expect(binPath).To(ContainSubstring(testPackage))
 				Expect(binPath).To(ContainSubstring(".gomodrun"))
 			})
-
 		})
 	})
 })
