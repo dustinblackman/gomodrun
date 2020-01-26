@@ -161,10 +161,7 @@ func GetCachedBin(pkgRoot, binName, cmdPath string) (string, error) {
 		}
 
 		if deleteSrcRoot {
-			err = os.RemoveAll(moduleSrcRoot)
-			if err != nil {
-				return "", err
-			}
+			os.RemoveAll(moduleBinSrcPath)
 		}
 	}
 
