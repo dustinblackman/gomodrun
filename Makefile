@@ -13,7 +13,9 @@ lint:
 lint-fix:
 	gomodrun golangci-lint run --fix
 
-# Add go build to test.
+release:
+	cd cmd/gomodrun && gomodrun goreleaser
+
 test:
 	gomodrun ginkgo -v -r .
 	make build && rm gomodrun
