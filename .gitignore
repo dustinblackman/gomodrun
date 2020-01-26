@@ -3,3 +3,4 @@ gomodrun
 *.tmp
 dist/
 cmd/gomodrun/dist/
+coverage.txt

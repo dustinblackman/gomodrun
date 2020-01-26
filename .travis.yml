@@ -12,4 +12,4 @@ install:
   - GO111MODULE=off go get -u github.com/dustinblackman/gomodrun/cmd/gomodrun
 script:
  - make lint
- - make test
+ - make test-coverage

@@ -1,6 +1,7 @@
 # gomodrun
 
 [![Build Status](https://travis-ci.com/dustinblackman/gomodrun.svg?branch=master)](https://travis-ci.com/dustinblackman/gomodrun)
+[![Coverage Status](https://coveralls.io/repos/github/dustinblackman/gomodrun/badge.svg?branch=master)](https://coveralls.io/github/dustinblackman/gomodrun?branch=master)
 [![Go Report Card](http://goreportcard.com/badge/dustinblackman/gomodrun)](http://goreportcard.com/report/dustinblackman/gomodrun)
 [![Godocs](https://godoc.org/github.com/dustinblackman/gomodrun?status.svg)](https://godoc.org/github.com/dustinblackman/gomodrun)
 

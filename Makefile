@@ -17,3 +17,8 @@ lint-fix:
 test:
 	gomodrun ginkgo -v -r .
 	make build && rm gomodrun
+
+test-coverage:
+	gomodrun ginkgo -v -r -race -cover -coverprofile=coverage.txt -covermode=atomic -outputdir=. .
+	make build && rm gomodrun
+	gomodrun goveralls -coverprofile=coverage.txt -service=travis-ci -repotoken $$COVERALLS_TOKEN
