@@ -13,6 +13,7 @@ import (
 )
 
 const testPackage string = "github.com/dustinblackman/go-hello-world-test@v0.0.1/hello-world"
+const testPackageNoGoMod string = "github.com/dustinblackman/go-hello-world-test-no-gomod@v0.0.2/hello-world-no-gomod"
 
 var _ = Describe("pkg", func() {
 	Context("GetPkgRoot", func() {
@@ -63,17 +64,17 @@ var _ = Describe("pkg", func() {
 				goVersion := strings.Split(string(goVersionOutput), " ")[2]
 				os.RemoveAll(path.Join(".gomodrun", goVersion, "github.com/dustinblackman"))
 
-				binPath, err := gomodrun.GetCachedBin(cwd, "hello-world-no-gomod", testPackage)
+				binPath, err := gomodrun.GetCachedBin(cwd, "hello-world-no-gomod", testPackageNoGoMod)
 				Expect(err).To(BeNil())
-				Expect(binPath).To(ContainSubstring(testPackage))
+				Expect(binPath).To(ContainSubstring(testPackageNoGoMod))
 				Expect(binPath).To(ContainSubstring(".gomodrun"))
 			})
 
 			It("should return the bin path when it exists in cache", func() {
 				cwd, _ := os.Getwd()
-				binPath, err := gomodrun.GetCachedBin(cwd, "hello-world-no-gomod", testPackage)
+				binPath, err := gomodrun.GetCachedBin(cwd, "hello-world-no-gomod", testPackageNoGoMod)
 				Expect(err).To(BeNil())
-				Expect(binPath).To(ContainSubstring(testPackage))
+				Expect(binPath).To(ContainSubstring(testPackageNoGoMod))
 				Expect(binPath).To(ContainSubstring(".gomodrun"))
 			})
 		})
