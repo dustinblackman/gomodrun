@@ -1,0 +1,5 @@
+gomodrun
+.gomodrun/
+*.tmp
+dist/
+cmd/gomodrun/dist
