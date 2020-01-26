@@ -5,6 +5,21 @@ before:
 builds:
 - env:
   - CGO_ENABLED=0
+  main: ./cmd/gomodrun/main.go
+  ldflags:
+    - -X main.version={{.Version}}
+  goos:
+    - linux
+    - darwin
+    - windows
+  goarch:
+    - 386
+    - amd64
+    - arm
+    - arm64
+  ignore:
+    - goos: darwin
+      goarch: 386
 archives:
 - replacements:
     darwin: Darwin

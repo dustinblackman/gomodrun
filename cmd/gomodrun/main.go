@@ -10,7 +10,7 @@ import (
 	"github.com/dustinblackman/gomodrun"
 )
 
-var version string = "0.0.0"
+var version string = "v0.0.0"
 
 func exitWithError(err error) {
 	color.Red("gomodrun: " + err.Error())
@@ -23,7 +23,7 @@ func main() {
 	}
 
 	if os.Args[1] == "--help" || os.Args[1] == "--version" {
-		fmt.Printf(`gomodrun v%s
+		fmt.Printf(`gomodrun %s
 The forgotten go tool that executes and caches binaries included in go.mod files.
 
 Usage:
