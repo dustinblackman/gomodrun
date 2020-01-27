@@ -13,6 +13,9 @@ lint:
 lint-fix:
 	gomodrun golangci-lint run --fix
 
+ginkgo:
+	gomodrun ginkgo -v -r .
+
 release:
 	git tag -a "v$(VERSION)" -m "v$(VERSION)"
 	git push --tags
@@ -21,8 +24,7 @@ release:
 release-snapshot:
 	gomodrun goreleaser --snapshot --skip-publish --rm-dist
 
-test:
-	gomodrun ginkgo -v -r .
+test: ginkgo
 	@make build && rm gomodrun
 
 test-coverage:
