@@ -1,6 +1,7 @@
 ![gomodrun](assets/banner.jpg)
 
 [![Build Status](https://travis-ci.org/dustinblackman/gomodrun.svg?branch=master)](https://travis-ci.org/dustinblackman/gomodrun)
+[![Release](https://img.shields.io/github/v/release/dustinblackman/gomodrun)](https://github.com/dustinblackman/gomodrun/releases)
 [![Coverage Status](https://coveralls.io/repos/github/dustinblackman/gomodrun/badge.svg?branch=master)](https://coveralls.io/github/dustinblackman/gomodrun?branch=master)
 [![Go Report Card](http://goreportcard.com/badge/dustinblackman/gomodrun)](http://goreportcard.com/report/dustinblackman/gomodrun)
 [![Godocs](https://godoc.org/github.com/dustinblackman/gomodrun?status.svg)](https://godoc.org/github.com/dustinblackman/gomodrun)
@@ -19,10 +20,41 @@ The forgotten go tool that executes and caches binaries included in go.mod files
 
 ## Installation
 
-Install directly with `go get` or grab the latest [release](https://github.com/dustinblackman/gomodrun/releases).
+
+**homebrew** (OSX / Linux):
 
 ```sh
-  go get -u github.com/dustinblackman/gomodrun/cmd/gomodrun
+brew install dustinblackman/tap/gomodrun
+```
+
+**snapcraft** (Linux):
+
+```sh
+$ sudo snap install gomodrun
+```
+
+**scoop** (Windows):
+
+```sh
+$ scoop bucket add dustinblackman https://github.com/dustinblackman/scoop-bucket.git
+$ scoop install gomodrun
+```
+
+**deb/rpm** (Linux):
+
+Download the `.deb` or `.rpm` from the [releases page](https://github.com/dustinblackman/gomodrun/releases) and
+install with `dpkg -i` and `rpm -i` respectively.
+
+
+**manually**:
+
+Download the pre-compiled binaries from the [releases page](https://github.com/dustinblackman/gomodrun/releases) and
+copy to the desired location.
+
+**go/master branch:**
+
+```
+go get -u github.com/dustinblackman/gomodrun/cmd/gomodrun
 ```
 
 ## Usage
