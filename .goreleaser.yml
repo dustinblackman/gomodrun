@@ -6,8 +6,6 @@ builds:
 - env:
   - CGO_ENABLED=0
   main: ./cmd/gomodrun/main.go
-  ldflags:
-    - -X main.version={{.Version}}
   goos:
     - linux
     - darwin
@@ -30,3 +28,46 @@ changelog:
     exclude:
     - '^docs:'
     - '^test:'
+archives:
+  - format_overrides:
+    - goos: windows
+      format: zip
+signs:
+  - artifacts: checksum
+    args: ["-u", "6A34CFEE77FE8257C3BB92FE24C3FC5D6987904B", "--output", "${signature}", "--detach-sign", "${artifact}"]
+brews:
+  - github:
+      owner: dustinblackman
+      name: homebrew-tap
+    folder: Formula
+    homepage: https://github.com/dustinblackman/gomodrun
+    description: The forgotten go tool that executes and caches binaries included in go.mod files
+    test: |
+      system "#{bin}/gomodrun --version"
+scoop:
+  bucket:
+    owner: dustinblackman
+    name: scoop-bucket
+  homepage: https://github.com/dustinblackman/gomodrun
+  description: The forgotten go tool that executes and caches binaries included in go.mod files
+  license: MIT
+nfpms:
+  - homepage:  https://github.com/dustinblackman/gomodrun
+    description: The forgotten go tool that executes and caches binaries included in go.mod files
+    maintainer: Dustin Blackman
+    license: MIT
+    vendor: Dustin Blackman
+    formats:
+    - deb
+    - rpm
+snapcrafts:
+  - summary: The forgotten go tool that executes and caches binaries included in go.mod files
+    description: |
+      The forgotten go tool that executes and caches binaries included in go.mod files.
+      This makes it easy to version cli tools in your projects such as `golangci-lint`
+      and `ginkgo` that are versioned locked to what you specify in `go.mod`.
+      Binaries are cached by go version and package version.
+    grade: stable
+    confinement: classic
+    publish: true
+    license: MIT

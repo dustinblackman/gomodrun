@@ -83,8 +83,7 @@ github.com/dgrijalva/jwt-go v3.2.0+incompatible/go.mod h1:E3ru+11k8xSBh+hMPgOLZm
 github.com/dgryski/go-sip13 v0.0.0-20181026042036-e10d5fee7954/go.mod h1:vAd38F8PWV+bWy6jNmig1y/TA+kYO4g3RSRF0IAv0no=
 github.com/dimchansky/utfbom v1.1.0 h1:FcM3g+nofKgUteL8dm/UpdRXNC9KmADgTpLKsu0TRo4=
 github.com/dimchansky/utfbom v1.1.0/go.mod h1:rO41eb7gLfo8SF1jd9F8HplJm1Fewwi4mQvIirEdv+8=
-github.com/dustinblackman/go-hello-world-test v0.0.1 h1:7VyG01Yxo3MyEofPv7dYPmoX0ArqRyYduB6IB64ZH9A=
-github.com/dustinblackman/go-hello-world-test v0.0.1/go.mod h1:wbYSnWUoM4tqbraqvRvVuK6jV7YV4Gv+d/lTltepZyA=
+github.com/dustinblackman/go-hello-world-test v0.0.2 h1:DcAbKiyeohJ/c/3m5c7h3tQGKA8q7J9eahZpAjo3ZZs=
 github.com/dustinblackman/go-hello-world-test v0.0.2/go.mod h1:wbYSnWUoM4tqbraqvRvVuK6jV7YV4Gv+d/lTltepZyA=
 github.com/dustinblackman/go-hello-world-test-no-gomod v0.0.2 h1:Eu6DQ8Fag75ZPs7CiuFrlq0y8+a2wnZZhJaUWv8MSFg=
 github.com/dustinblackman/go-hello-world-test-no-gomod v0.0.2/go.mod h1:gp0E7D1LcpcXdGgVpmD9dcjQUAD4ah1Asil+ptJt8a4=
