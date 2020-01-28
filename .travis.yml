@@ -3,13 +3,16 @@ language: go
 go:
 - 1.13
 
+addons:
+ snaps:
+   - gomodrun
+
 cache:
   directories:
     - .gomodrun/
     - /home/travis/gopath/pkg/mod/
 install:
   - go mod download
-  - GO111MODULE=off go get -u github.com/dustinblackman/gomodrun/cmd/gomodrun
 script:
  - make lint
  - make test-coverage
