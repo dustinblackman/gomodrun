@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := build
-VERSION := 0.0.4
+VERSION := 0.1.0
 
 build:
 	cd cmd/gomodrun && go build -o ../../gomodrun -ldflags="-X main.version=$(VERSION)"
