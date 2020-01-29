@@ -81,6 +81,7 @@ func GetCommandVersionedPkgPath(pkgRoot, binName string) (string, error) {
 	for importPath, version := range mod.Require {
 		if strings.HasPrefix(binModulePath, importPath) {
 			cmdPath = path.Join(importPath+"@"+version, strings.ReplaceAll(binModulePath, importPath, ""))
+			break
 		}
 	}
 
