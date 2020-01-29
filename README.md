@@ -30,7 +30,7 @@ brew install dustinblackman/tap/gomodrun
 **snapcraft** (Linux):
 
 ```sh
-$ sudo snap install --classic gomodrun
+$ sudo snap install gomodrun
 ```
 
 **scoop** (Windows):
