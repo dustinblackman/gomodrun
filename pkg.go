@@ -64,7 +64,7 @@ func GetCommandVersionedPkgPath(pkgRoot, binName string) (string, error) {
 	}
 
 	if binModulePath == "" {
-		return "", errors.New("can not find bin path")
+		return "", errors.New("can not find bin in tools file")
 	}
 
 	gomodPath := path.Join(pkgRoot, "go.mod")
