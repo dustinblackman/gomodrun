@@ -10,6 +10,10 @@ builds:
     - linux
     - darwin
     - windows
+    - freebsd
+    - netbsd
+    - openbsd
+    - dragonfly
   goarch:
     - 386
     - amd64
@@ -18,6 +22,9 @@ builds:
   ignore:
     - goos: darwin
       goarch: 386
+    - goos: openbsd
+      goarch: arm
+      goarm: 6
 checksum:
   name_template: 'checksums.txt'
 snapshot:
