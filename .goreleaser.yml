@@ -48,7 +48,7 @@ brews:
       name: homebrew-tap
     folder: Formula
     homepage: https://github.com/dustinblackman/gomodrun
-    description: The forgotten go tool that executes and caches binaries included in go.mod files
+    description: The forgotten go tool that executes and caches binaries
     test: |
       system "#{bin}/gomodrun --version"
 scoop:
