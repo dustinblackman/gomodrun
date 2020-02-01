@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := build
-VERSION := 0.1.3
+VERSION := 0.2.0
 
 build:
 	cd cmd/gomodrun && go build -o ../../gomodrun -ldflags="-X main.version=$(VERSION)"
@@ -17,7 +17,10 @@ ginkgo:
 	gomodrun ginkgo -v -r .
 
 release:
+	git add .
+	git commit -m "v$(VERSION)"
 	git tag -a "v$(VERSION)" -m "v$(VERSION)"
+	git push
 	git push --tags
 	gomodrun goreleaser --rm-dist
 
