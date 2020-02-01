@@ -23,7 +23,7 @@ type Options struct {
 	Stdout  io.Writer // Stdout passed to tool.
 	Stderr  io.Writer // Stderr passed to tool.
 	Env     []string  // Array of environment variables passed to tool.
-	PkgRoot string    // Root directory of go.mod with tools
+	PkgRoot string    // Root directory of go.mod with tools.
 }
 
 // GetPkgRoot gets your projects package root, allowing you to run gomodrun from any sub directory.
