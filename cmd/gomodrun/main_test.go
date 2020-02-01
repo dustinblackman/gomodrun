@@ -1,4 +1,4 @@
-package gomodrun_test
+package main_test
 
 import (
 	"testing"
@@ -11,5 +11,5 @@ import (
 
 func TestGomodrun(t *testing.T) {
 	RegisterFailHandler(Fail)
-	macchiato.RunSpecs(t, "root")
+	macchiato.RunSpecs(t, "cmd")
 }
