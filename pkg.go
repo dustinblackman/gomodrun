@@ -34,11 +34,12 @@ func GetPkgRoot() (string, error) {
 	}
 
 	for {
+		if currentDir == "/" {
+			return "", errors.New("go.mod not found")
+		}
+
 		if _, err := os.Stat(path.Join(currentDir, "go.mod")); !os.IsNotExist(err) {
 			absPath, err := filepath.Abs(currentDir)
-			if absPath == "/" {
-				return "", errors.New("go.mod not found")
-			}
 			if err != nil {
 				return "", err
 			}
@@ -66,7 +67,7 @@ func GetCommandVersionedPkgPath(pkgRoot, binName string) (string, error) {
 	}
 
 	if binModulePath == "" {
-		return "", errors.New("can not find bin in tools file")
+		return "", errors.New("cant find bin in tools file")
 	}
 
 	gomodPath := path.Join(pkgRoot, "go.mod")
@@ -88,7 +89,7 @@ func GetCommandVersionedPkgPath(pkgRoot, binName string) (string, error) {
 	}
 
 	if cmdPath == "" {
-		return "", fmt.Errorf("can not find require for module %s in go.mod", binModulePath)
+		return "", fmt.Errorf("cant find require for module %s in go.mod", binModulePath)
 	}
 
 	return cmdPath, nil

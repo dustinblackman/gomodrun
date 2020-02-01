@@ -21,10 +21,26 @@ var _ = Describe("pkg", func() {
 	goVersion := strings.Split(string(goVersionOutput), " ")[2]
 
 	Context("GetPkgRoot", func() {
-		It("it should return the current working directory that contains a go.mod", func() {
+		It("should return the current working directory that contains a go.mod", func() {
 			dir, err := gomodrun.GetPkgRoot()
 			Expect(err).To(BeNil())
 			Expect(dir).To(Equal(cwd))
+		})
+
+		It("should return an error when it can not find a go.mod", func() {
+			err := os.Chdir("../")
+			if err != nil {
+				panic(err)
+			}
+
+			dir, err := gomodrun.GetPkgRoot()
+			Expect(err).ToNot(BeNil())
+			Expect(dir).To(Equal(""))
+
+			err = os.Chdir(cwd)
+			if err != nil {
+				panic(err)
+			}
 		})
 	})
 
@@ -33,6 +49,38 @@ var _ = Describe("pkg", func() {
 			cmdPath, err := gomodrun.GetCommandVersionedPkgPath(cwd, "hello-world")
 			Expect(err).To(BeNil())
 			Expect(cmdPath).To(Equal(testPackage))
+		})
+
+		It("should throw an error when it cant find tools imports", func() {
+			cmdPath, err := gomodrun.GetCommandVersionedPkgPath(path.Join(cwd, "../"), "hello-world")
+			Expect(err).ToNot(BeNil())
+			Expect(cmdPath).To(Equal(""))
+		})
+
+		It("should throw an error when it cant find specified bin in imports", func() {
+			cmdPath, err := gomodrun.GetCommandVersionedPkgPath(cwd, "not-real")
+			Expect(err).ToNot(BeNil())
+			Expect(strings.Contains(err.Error(), "cant find bin in tools file")).To(BeTrue())
+			Expect(cmdPath).To(Equal(""))
+		})
+
+		It("should throw an error when go.mod cant be found", func() {
+			cmdPath, err := gomodrun.GetCommandVersionedPkgPath(path.Join(cwd, "./tests/missing-go-mod"), "hello-world")
+			Expect(err).ToNot(BeNil())
+			Expect(cmdPath).To(Equal(""))
+		})
+
+		It("should throw an error when go.mod is corrupted", func() {
+			cmdPath, err := gomodrun.GetCommandVersionedPkgPath(path.Join(cwd, "./tests/corrupted-go-mod"), "hello-world")
+			Expect(err).ToNot(BeNil())
+			Expect(cmdPath).To(Equal(""))
+		})
+
+		It("should throw an error when go.mod is missing the requested dependency", func() {
+			cmdPath, err := gomodrun.GetCommandVersionedPkgPath(path.Join(cwd, "./tests/incomplete-go-mod"), "hello-world")
+			Expect(err).ToNot(BeNil())
+			Expect(strings.Contains(err.Error(), "cant find require")).To(BeTrue())
+			Expect(cmdPath).To(Equal(""))
 		})
 	})
 
