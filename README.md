@@ -16,6 +16,9 @@ The forgotten go tool that executes and caches binaries included in go.mod files
 
   # Convert a JSON object to a Go struct, properly passing in stdin.
   echo example.json | gomodrun gojson > example.go
+
+  # Specifiy alternative root directory containing a go.mod and tools file.
+  gomodrun -r ./alternative-tools-dir golangci-lint run
 ```
 
 ## Installation
@@ -98,11 +101,12 @@ import (
 )
 
 func main() {
-	exitCode, err := gomodrun.Run("golangci-lint", []string{"run"}, gomodrun.Options{
-		Stdin:  os.Stdin,
-		Stdout: os.Stdout,
-		Stderr: os.Stderr,
-		Env:    os.Environ(),
+	exitCode, err := gomodrun.Run("golangci-lint", []string{"run"}, &gomodrun.Options{
+		Stdin:   os.Stdin,
+		Stdout:  os.Stdout,
+		Stderr:  os.Stderr,
+		Env:     os.Environ(),
+		PkgRoot: "",
 	})
 }
 ```

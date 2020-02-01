@@ -74,21 +74,45 @@ var _ = Describe("pkg", func() {
 
 	Context("Run", func() {
 		It("should return exit code 0 when binary exits with 0", func() {
-			exitCode, err := gomodrun.Run("hello-world", []string{}, gomodrun.Options{})
+			exitCode, err := gomodrun.Run("hello-world", []string{}, &gomodrun.Options{})
 			Expect(err).To(BeNil())
 			Expect(exitCode).To(Equal(0))
 		})
 
 		It("should return exit code 1 when the binary exists with 1", func() {
-			exitCode, err := gomodrun.Run("hello-world", []string{"1"}, gomodrun.Options{})
+			exitCode, err := gomodrun.Run("hello-world", []string{"1"}, &gomodrun.Options{})
 			Expect(err).To(BeNil())
 			Expect(exitCode).To(Equal(1))
 		})
 
 		It("should return an error when the binary does not exist", func() {
-			exitCode, err := gomodrun.Run("not-real", []string{}, gomodrun.Options{})
+			exitCode, err := gomodrun.Run("not-real", []string{}, &gomodrun.Options{})
 			Expect(err).ToNot(BeNil())
 			Expect(exitCode).To(Equal(-1))
+		})
+
+		Context("Alternative tools directory", func() {
+			options := &gomodrun.Options{
+				PkgRoot: path.Join(cwd, "./tests/alternative-tools-dir"),
+			}
+
+			It("should return exit code 0 when binary exits with 0", func() {
+				exitCode, err := gomodrun.Run("hello-world", []string{}, options)
+				Expect(err).To(BeNil())
+				Expect(exitCode).To(Equal(0))
+			})
+
+			It("should return exit code 1 when the binary exists with 1", func() {
+				exitCode, err := gomodrun.Run("hello-world", []string{"1"}, options)
+				Expect(err).To(BeNil())
+				Expect(exitCode).To(Equal(1))
+			})
+
+			It("should return an error when the binary does not exist", func() {
+				exitCode, err := gomodrun.Run("not-real", []string{}, options)
+				Expect(err).ToNot(BeNil())
+				Expect(exitCode).To(Equal(-1))
+			})
 		})
 	})
 })

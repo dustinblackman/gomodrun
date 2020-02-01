@@ -34,20 +34,36 @@ https://github.com/dustinblackman/gomodrun/commit/%s
 The forgotten go tool that executes and caches binaries included in go.mod files.
 
 Usage:
-	gomodrun cli-name [parameters]
+	gomodrun [flags] cli-name [parameters]
 
 Example:
 	gomodrun golangci-lint run
-	echo example.json | gomodrun gojson > example.go`, version, date, commit)
+	echo example.json | gomodrun gojson > example.go
+	gomodrun -r ./alternative-tools-dir golangci-lint run
+
+Flags:
+  -r, --pkg-root string  Specify alternative root directory containing a go.mod and tools file. Defaults to walking up the file tree to locate go.mod.`, version, date, commit)
 		os.Exit(0)
 	}
 
-	exitCode, err := gomodrun.Run(os.Args[1], os.Args[2:], gomodrun.Options{
-		Stdin:  os.Stdin,
-		Stdout: os.Stdout,
-		Stderr: os.Stderr,
-		Env:    os.Environ(),
+	cmdPosition := 1
+	argsPosition := 2
+	pkgRoot := ""
+
+	if os.Args[1] == "-r" || os.Args[1] == "--pkg-root" {
+		pkgRoot = os.Args[2]
+		cmdPosition += 2
+		argsPosition += 2
+	}
+
+	exitCode, err := gomodrun.Run(os.Args[cmdPosition], os.Args[argsPosition:], &gomodrun.Options{
+		Stdin:   os.Stdin,
+		Stdout:  os.Stdout,
+		Stderr:  os.Stderr,
+		Env:     os.Environ(),
+		PkgRoot: pkgRoot,
 	})
+
 	if err != nil {
 		exitWithError(err)
 	}

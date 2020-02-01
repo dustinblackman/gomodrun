@@ -19,10 +19,11 @@ import (
 
 // Options contains parameters that are passed to `exec.Command` when running the binary.
 type Options struct {
-	Stdin  io.Reader
-	Stdout io.Writer
-	Stderr io.Writer
-	Env    []string
+	Stdin   io.Reader // Stdin passed to tool.
+	Stdout  io.Writer // Stdout passed to tool.
+	Stderr  io.Writer // Stderr passed to tool.
+	Env     []string  // Array of environment variables passed to tool.
+	PkgRoot string    // Root directory of go.mod with tools
 }
 
 // GetPkgRoot gets your projects package root, allowing you to run gomodrun from any sub directory.
@@ -31,6 +32,7 @@ func GetPkgRoot() (string, error) {
 	if err != nil {
 		return "", err
 	}
+
 	for {
 		if _, err := os.Stat(path.Join(currentDir, "go.mod")); !os.IsNotExist(err) {
 			absPath, err := filepath.Abs(currentDir)
@@ -170,10 +172,15 @@ func GetCachedBin(pkgRoot, binName, cmdPath string) (string, error) {
 }
 
 // Run executes your binary.
-func Run(binName string, args []string, options Options) (int, error) {
-	pkgRoot, err := GetPkgRoot()
-	if err != nil {
-		return -1, err
+func Run(binName string, args []string, options *Options) (int, error) {
+	var err error
+	pkgRoot := options.PkgRoot
+
+	if pkgRoot == "" {
+		pkgRoot, err = GetPkgRoot()
+		if err != nil {
+			return -1, err
+		}
 	}
 
 	cmdPath, err := GetCommandVersionedPkgPath(pkgRoot, binName)
