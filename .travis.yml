@@ -9,7 +9,6 @@ cache:
     - /home/travis/gopath/pkg/mod/
 install:
   - go mod download
-  - GO111MODULE=off go get -u github.com/dustinblackman/gomodrun/cmd/gomodrun
   - GOMODRUN_VERSION=$(cat Makefile | grep VERSION | head -n 1 | awk -F ':= ' '{print $2}') curl -L "https://github.com/dustinblackman/gomodrun/releases/download/v${GOMODRUN_VERSION}/gomodrun_${GOMODRUN_VERSION}_linux_amd64.tar.gz" | tar -zxvf - -C /home/travis/gopath/bin/ gomodrun
 script:
  - make lint
