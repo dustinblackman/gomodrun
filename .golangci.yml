@@ -35,10 +35,14 @@ linters-settings:
     locale: US
 
 issues:
+  exclude-use-default: false
   exclude-rules:
     - path: _test\.go
       linters:
         - dupl
+    - text: "(G204|G304|G302):"
+      linters:
+      - gosec
 
 linters:
   disable-all: true

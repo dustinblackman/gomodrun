@@ -1,3 +1,4 @@
+// Package main compiles the binary that uses the gomodrun library.
 package main
 
 import (

@@ -1,3 +1,7 @@
+// Package gomodrun is the forgotten go tool that executes and caches binaries included in go.mod files.
+// This makes it easy to version cli tools in your projects such as `golangci-lint`
+// and `ginkgo` that are versioned locked to what you specify in `go.mod`.
+// Binaries are cached by go version and package version.
 package gomodrun
 
 import (
@@ -165,7 +169,7 @@ func GetCachedBin(pkgRoot, binName, cmdPath string) (string, error) {
 		}
 
 		if deleteSrcRoot {
-			os.RemoveAll(moduleBinSrcPath)
+			os.RemoveAll(moduleBinSrcPath) //nolint // Ignore error, not interested if it fails.
 		}
 	}
 

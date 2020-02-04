@@ -87,7 +87,11 @@ var _ = Describe("pkg", func() {
 	Context("GetCachedBin", func() {
 		Context("with go.mod", func() {
 			It("should return the bin path when it does not exist in cache", func() {
-				os.RemoveAll(path.Join(".gomodrun", goVersion, "github.com/dustinblackman"))
+				err := os.RemoveAll(path.Join(".gomodrun", goVersion, "github.com/dustinblackman"))
+				if err != nil {
+					panic(err)
+				}
+
 				binPath, err := gomodrun.GetCachedBin(cwd, "hello-world", testPackage)
 				Expect(err).To(BeNil())
 				Expect(binPath).To(ContainSubstring(testPackage))
@@ -104,7 +108,11 @@ var _ = Describe("pkg", func() {
 
 		Context("without go.mod", func() {
 			It("should return the bin path when it does not exist in cache", func() {
-				os.RemoveAll(path.Join(".gomodrun", goVersion, "github.com/dustinblackman"))
+				err := os.RemoveAll(path.Join(".gomodrun", goVersion, "github.com/dustinblackman"))
+				if err != nil {
+					panic(err)
+				}
+
 				binPath, err := gomodrun.GetCachedBin(cwd, "hello-world-no-gomod", testPackageNoGoMod)
 				Expect(err).To(BeNil())
 				Expect(binPath).To(ContainSubstring(testPackageNoGoMod))
