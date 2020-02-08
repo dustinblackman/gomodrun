@@ -1,17 +1,49 @@
 language: go
 
+os:
+  - linux
+  - windows
+  - osx
+
 go:
-- 1.13
+  - 1.13
 
 cache:
   directories:
     - .gomodrun/
     - /home/travis/gopath/pkg/mod/
+
+before_install:
+  - |
+      case $TRAVIS_OS_NAME in
+        windows)
+          choco install -y make busybox
+          ;;
+      esac
+
 install:
   - go mod download
   - |
-    export GOMODRUN_VERSION=$(cat Makefile | grep VERSION | head -n 1 | awk -F ':= ' '{print $2}')
-    curl -L "https://github.com/dustinblackman/gomodrun/releases/download/v${GOMODRUN_VERSION}/gomodrun_${GOMODRUN_VERSION}_linux_amd64.tar.gz" | tar -zxvf - -C /home/travis/gopath/bin/ gomodrun
+    GOMODRUN_VERSION=$(cat Makefile | grep VERSION | head -n 1 | awk -F ':= ' '{print $2}')
+    OS_NAME="$TRAVIS_OS_NAME"
+
+    if [[ "$OS_NAME" == "osx" ]]; then
+      OS_NAME="darwin"
+    fi
+
+    mkdir -p "$GOPATH/bin/"
+    if [[ "$OS_NAME" == "windows" ]]; then
+      curl -L -o "$HOME/gomodrun.zip" "https://github.com/dustinblackman/gomodrun/releases/download/v${GOMODRUN_VERSION}/gomodrun_${GOMODRUN_VERSION}_${OS_NAME}_amd64.zip"
+      busybox unzip -d "$GOPATH/bin/" "$HOME/gomodrun.zip"
+    else
+      curl -L "https://github.com/dustinblackman/gomodrun/releases/download/v${GOMODRUN_VERSION}/gomodrun_${GOMODRUN_VERSION}_${OS_NAME}_amd64.tar.gz" | tar -zxvf - -C "$GOPATH/bin/" gomodrun
+    fi
+
 script:
- - make lint
- - make test-coverage
+  - |
+      case $TRAVIS_OS_NAME in
+        linux)
+          make lint
+          ;;
+      esac
+  - make test-coverage

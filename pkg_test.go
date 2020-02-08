@@ -4,6 +4,7 @@ import (
 	"os"
 	"os/exec"
 	"path"
+	"runtime"
 	"strings"
 
 	. "github.com/onsi/ginkgo"
@@ -14,6 +15,14 @@ import (
 
 const testPackage string = "github.com/dustinblackman/go-hello-world-test@v0.0.2/hello-world"
 const testPackageNoGoMod string = "github.com/dustinblackman/go-hello-world-test-no-gomod@v0.0.2/hello-world-no-gomod"
+
+func formatForOS(pkgPath string) string {
+	if runtime.GOOS == "windows" {
+		return strings.ReplaceAll(pkgPath, "/", "\\")
+	}
+
+	return pkgPath
+}
 
 var _ = Describe("pkg", func() {
 	cwd, _ := os.Getwd()
@@ -52,7 +61,7 @@ var _ = Describe("pkg", func() {
 		})
 
 		It("should throw an error when it cant find tools imports", func() {
-			cmdPath, err := gomodrun.GetCommandVersionedPkgPath(path.Join(cwd, "../"), "hello-world")
+			cmdPath, err := gomodrun.GetCommandVersionedPkgPath(path.Join(cwd, "../../"), "hello-world")
 			Expect(err).ToNot(BeNil())
 			Expect(cmdPath).To(Equal(""))
 		})
@@ -94,14 +103,14 @@ var _ = Describe("pkg", func() {
 
 				binPath, err := gomodrun.GetCachedBin(cwd, "hello-world", testPackage)
 				Expect(err).To(BeNil())
-				Expect(binPath).To(ContainSubstring(testPackage))
+				Expect(binPath).To(ContainSubstring(formatForOS(testPackage)))
 				Expect(binPath).To(ContainSubstring(".gomodrun"))
 			})
 
 			It("should return the bin path when it exists in cache", func() {
 				binPath, err := gomodrun.GetCachedBin(cwd, "hello-world", testPackage)
 				Expect(err).To(BeNil())
-				Expect(binPath).To(ContainSubstring(testPackage))
+				Expect(binPath).To(ContainSubstring(formatForOS(testPackage)))
 				Expect(binPath).To(ContainSubstring(".gomodrun"))
 			})
 		})
@@ -115,14 +124,14 @@ var _ = Describe("pkg", func() {
 
 				binPath, err := gomodrun.GetCachedBin(cwd, "hello-world-no-gomod", testPackageNoGoMod)
 				Expect(err).To(BeNil())
-				Expect(binPath).To(ContainSubstring(testPackageNoGoMod))
+				Expect(binPath).To(ContainSubstring(formatForOS(testPackageNoGoMod)))
 				Expect(binPath).To(ContainSubstring(".gomodrun"))
 			})
 
 			It("should return the bin path when it exists in cache", func() {
 				binPath, err := gomodrun.GetCachedBin(cwd, "hello-world-no-gomod", testPackageNoGoMod)
 				Expect(err).To(BeNil())
-				Expect(binPath).To(ContainSubstring(testPackageNoGoMod))
+				Expect(binPath).To(ContainSubstring(formatForOS(testPackageNoGoMod)))
 				Expect(binPath).To(ContainSubstring(".gomodrun"))
 			})
 		})

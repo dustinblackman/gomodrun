@@ -14,6 +14,7 @@ import (
 	"os/exec"
 	"path"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"syscall"
 
@@ -38,7 +39,7 @@ func GetPkgRoot() (string, error) {
 	}
 
 	for {
-		if currentDir == "/" {
+		if currentDir == "/" || currentDir == "." || strings.HasSuffix(currentDir, ":\\") {
 			return "", errors.New("go.mod not found")
 		}
 
@@ -55,6 +56,10 @@ func GetPkgRoot() (string, error) {
 
 // GetCommandVersionedPkgPath extracts the command line tools package path and version from go.mod.
 func GetCommandVersionedPkgPath(pkgRoot, binName string) (string, error) {
+	if strings.HasSuffix(binName, ".exe") {
+		binName = strings.ReplaceAll(binName, ".exe", "")
+	}
+
 	importContext := build.Default
 	importContext.BuildTags = []string{"tools"}
 	pkg, err := importContext.ImportDir(pkgRoot, 0)
@@ -103,6 +108,10 @@ func GetCommandVersionedPkgPath(pkgRoot, binName string) (string, error) {
 func GetCachedBin(pkgRoot, binName, cmdPath string) (string, error) {
 	// Delete source root if it was copied to a temp folder.
 	deleteSrcRoot := false
+
+	if runtime.GOOS == "windows" && !strings.HasSuffix(binName, ".exe") {
+		binName += ".exe"
+	}
 
 	goVersionOutput, err := exec.Command("go", "version").Output()
 	if err != nil {
