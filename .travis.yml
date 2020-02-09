@@ -11,7 +11,7 @@ go:
 cache:
   directories:
     - .gomodrun/
-    - /home/travis/gopath/pkg/mod/
+    - $GOPATH/pkg/mod/
 
 before_install:
   - |
