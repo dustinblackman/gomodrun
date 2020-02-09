@@ -60,6 +60,12 @@ var _ = Describe("pkg", func() {
 			Expect(cmdPath).To(Equal(testPackage))
 		})
 
+		It("should get the binaries binaries command path with suffix includes .exe", func() {
+			cmdPath, err := gomodrun.GetCommandVersionedPkgPath(cwd, "hello-world.exe")
+			Expect(err).To(BeNil())
+			Expect(cmdPath).To(Equal(testPackage))
+		})
+
 		It("should throw an error when it cant find tools imports", func() {
 			cmdPath, err := gomodrun.GetCommandVersionedPkgPath(path.Join(cwd, "../../"), "hello-world")
 			Expect(err).ToNot(BeNil())
