@@ -4,7 +4,7 @@
 [![Release](https://img.shields.io/github/v/release/dustinblackman/gomodrun)](https://github.com/dustinblackman/gomodrun/releases)
 [![Coverage Status](https://coveralls.io/repos/github/dustinblackman/gomodrun/badge.svg?branch=master)](https://coveralls.io/github/dustinblackman/gomodrun?branch=master)
 [![Go Report Card](http://goreportcard.com/badge/dustinblackman/gomodrun)](http://goreportcard.com/report/dustinblackman/gomodrun)
-[![Godocs](https://godoc.org/github.com/dustinblackman/gomodrun?status.svg)](https://godoc.org/github.com/dustinblackman/gomodrun)
+[![Godocs](https://godoc.org/github.com/dustinblackman/gomodrun?status.svg)](https://pkg.go.dev/github.com/dustinblackman/gomodrun?tab=doc)
 
 The forgotten go tool that executes and caches binaries included in go.mod files. This makes it easy to version cli tools in your projects such as `golangci-lint` and `ginkgo` that are versioned locked to what you specify in `go.mod`. Binaries are cached by go version and package version.
 
