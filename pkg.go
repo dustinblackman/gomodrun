@@ -124,7 +124,11 @@ func GetCachedBin(pkgRoot, binName, cmdPath string) (string, error) {
 	}
 
 	if _, err := os.Stat(cachedBin); os.IsNotExist(err) {
-		moduleBinSrcPath := path.Join(os.Getenv("GOPATH"), "pkg/mod", cmdPath)
+		goPath := os.Getenv("GOPATH")
+		if goPath == "" {
+			goPath = build.Default.GOPATH
+		}
+		moduleBinSrcPath := path.Join(goPath, "pkg", "mod", cmdPath)
 		if _, err := os.Stat(moduleBinSrcPath); os.IsNotExist(err) {
 			return "", fmt.Errorf("module %s not downloaded. Run `go mod download`", cmdPath)
 		}
