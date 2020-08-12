@@ -16,7 +16,7 @@ lint-fix:
 ginkgo:
 	gomodrun ginkgo -v -r .
 
-release:
+release: lint test
 	go mod tidy
 	git add .
 	git commit -m "v$(VERSION)"

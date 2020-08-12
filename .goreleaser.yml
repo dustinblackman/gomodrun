@@ -1,7 +1,3 @@
-before:
-  hooks:
-    - make lint
-    - make test
 builds:
 - env:
   - CGO_ENABLED=0
