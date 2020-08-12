@@ -68,6 +68,7 @@ func GetCommandVersionedPkgPath(pkgRoot, binName string) (string, error) {
 		return "", err
 	}
 
+	versionedDepMatcher := regexp.MustCompile(`/v\d$`)
 	binModulePath := ""
 	for _, modulePath := range pkg.Imports {
 		if strings.HasSuffix(modulePath, binName) {
@@ -75,8 +76,7 @@ func GetCommandVersionedPkgPath(pkgRoot, binName string) (string, error) {
 			break
 		}
 
-		versionedDep, _ := regexp.MatchString(`\/v\d$`, modulePath)
-		if versionedDep && strings.HasSuffix(path.Dir(modulePath), binName) {
+		if versionedDepMatcher.MatchString(modulePath) && strings.HasSuffix(path.Dir(modulePath), binName) {
 			binModulePath = modulePath
 			break
 		}
