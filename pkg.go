@@ -14,6 +14,7 @@ import (
 	"os/exec"
 	"path"
 	"path/filepath"
+	"regexp"
 	"runtime"
 	"strings"
 	"syscall"
@@ -70,6 +71,12 @@ func GetCommandVersionedPkgPath(pkgRoot, binName string) (string, error) {
 	binModulePath := ""
 	for _, modulePath := range pkg.Imports {
 		if strings.HasSuffix(modulePath, binName) {
+			binModulePath = modulePath
+			break
+		}
+
+		versionedDep, _ := regexp.MatchString(`\/v\d$`, modulePath)
+		if versionedDep && strings.HasSuffix(path.Dir(modulePath), binName) {
 			binModulePath = modulePath
 			break
 		}

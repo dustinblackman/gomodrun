@@ -3,6 +3,7 @@ module github.com/dustinblackman/gomodrun
 go 1.14
 
 require (
+	github.com/davecgh/go-spew v1.1.1
 	github.com/dustinblackman/go-hello-world-test v0.0.2
 	github.com/dustinblackman/go-hello-world-test-no-gomod v0.0.2
 	github.com/fatih/color v1.9.0
