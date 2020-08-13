@@ -4,12 +4,11 @@ import (
 	"testing"
 
 	"github.com/novln/macchiato"
-
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
 
 func TestGomodrun(t *testing.T) {
 	RegisterFailHandler(Fail)
-	macchiato.RunSpecs(t, "root")
+	macchiato.RunSpecs(t, "GoModRun")
 }

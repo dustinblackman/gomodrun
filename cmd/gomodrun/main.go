@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/fatih/color"
 
@@ -43,7 +44,8 @@ Example:
 	gomodrun -r ./alternative-tools-dir golangci-lint run
 
 Flags:
-  -r, --pkg-root string  Specify alternative root directory containing a go.mod and tools file. Defaults to walking up the file tree to locate go.mod.`, version, date, commit)
+  -r, --pkg-root string  Specify alternative root directory containing a go.mod and tools file. Defaults to walking up the file tree to locate go.mod.
+  -t, --tidy  Cleans .gomodrun of any outdated binaries.`, version, date, commit)
 		os.Exit(0)
 	}
 
@@ -51,10 +53,32 @@ Flags:
 	argsPosition := 2
 	pkgRoot := ""
 
-	if os.Args[1] == "-r" || os.Args[1] == "--pkg-root" {
-		pkgRoot = os.Args[2]
-		cmdPosition += 2
-		argsPosition += 2
+	skipNext := false
+	for idx, entry := range os.Args {
+		if skipNext {
+			skipNext = false
+			continue
+		}
+
+		if entry == "-t" || entry == "--tidy" {
+			err := gomodrun.Tidy(pkgRoot)
+			if err != nil {
+				exitWithError(err)
+			}
+			os.Exit(0)
+		}
+
+		if entry == "-r" || entry == "--pkg-root" {
+			pkgRoot = os.Args[idx+1]
+			skipNext = true
+			continue
+		}
+
+		if !strings.HasPrefix(entry, "-") {
+			cmdPosition = idx
+			argsPosition = idx + 1
+			break
+		}
 	}
 
 	exitCode, err := gomodrun.Run(os.Args[cmdPosition], os.Args[argsPosition:], &gomodrun.Options{

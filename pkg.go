@@ -20,7 +20,6 @@ import (
 	"syscall"
 
 	"github.com/otiai10/copy"
-	"github.com/sirkon/goproxy/gomod"
 )
 
 // Options contains parameters that are passed to `exec.Command` when running the binary.
@@ -61,9 +60,7 @@ func GetCommandVersionedPkgPath(pkgRoot, binName string) (string, error) {
 		binName = strings.ReplaceAll(binName, ".exe", "")
 	}
 
-	importContext := build.Default
-	importContext.BuildTags = []string{"tools"}
-	pkg, err := importContext.ImportDir(pkgRoot, 0)
+	pkg, err := getToolsPkg(pkgRoot)
 	if err != nil {
 		return "", err
 	}
@@ -86,12 +83,7 @@ func GetCommandVersionedPkgPath(pkgRoot, binName string) (string, error) {
 		return "", errors.New("cant find bin in tools file")
 	}
 
-	gomodPath := path.Join(pkgRoot, "go.mod")
-	data, err := ioutil.ReadFile(gomodPath)
-	if err != nil {
-		return "", err
-	}
-	mod, err := gomod.Parse(gomodPath, data)
+	mod, err := getGoMod(pkgRoot)
 	if err != nil {
 		return "", err
 	}
@@ -120,12 +112,12 @@ func GetCachedBin(pkgRoot, binName, cmdPath string) (string, error) {
 		binName += ".exe"
 	}
 
-	goVersionOutput, err := exec.Command("go", "version").Output()
+	goVersion, err := getGoVersion()
 	if err != nil {
 		return "", err
 	}
 
-	cachedBin, err := filepath.Abs(path.Join(pkgRoot, ".gomodrun/", strings.Split(string(goVersionOutput), " ")[2], cmdPath, binName))
+	cachedBin, err := filepath.Abs(path.Join(pkgRoot, ".gomodrun/", goVersion, cmdPath, binName))
 	if err != nil {
 		return "", err
 	}
