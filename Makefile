@@ -1,11 +1,10 @@
 .DEFAULT_GOAL := build
-VERSION := 0.3.1
 
 build:
-	cd cmd/gomodrun && go build -o ../../gomodrun -ldflags="-X main.version=$(VERSION)"
+	cd cmd/gomodrun && go build -o ../../gomodrun -ldflags="-X main.version=$$(cat ../../VERSION)"
 
 install:
-	cd cmd/gomodrun && go install -ldflags="-X main.version=$(VERSION)"
+	cd cmd/gomodrun && go install -ldflags="-X main.version=$$(cat ../../VERSION)"
 
 lint:
 	gomodrun golangci-lint run
@@ -19,8 +18,8 @@ ginkgo:
 release: lint test
 	go mod tidy
 	git add .
-	git commit -m "v$(VERSION)"
-	git tag -a "v$(VERSION)" -m "v$(VERSION)"
+	git commit -m "v$$(cat VERSION)"
+	git tag -a "v$$(cat VERSION)" -m "v$$(cat VERSION)"
 	git push
 	git push --tags
 	gomodrun goreleaser --rm-dist
