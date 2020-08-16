@@ -55,7 +55,7 @@ Flags:
 
 	skipNext := false
 	for idx, entry := range os.Args {
-		if skipNext {
+		if skipNext || idx == 0 {
 			skipNext = false
 			continue
 		}
