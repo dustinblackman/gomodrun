@@ -24,7 +24,7 @@ before_install:
 install:
   - go mod download
   - |
-    GOMODRUN_VERSION=$(cat Makefile | grep VERSION | head -n 1 | awk -F ':= ' '{print $2}')
+    GOMODRUN_VERSION=$(cat VERSION)
     OS_NAME="$TRAVIS_OS_NAME"
 
     if [[ "$OS_NAME" == "osx" ]]; then
