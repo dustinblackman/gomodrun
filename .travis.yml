@@ -47,3 +47,4 @@ script:
           ;;
       esac
   - make test-coverage
+  - gomodrun --tidy
