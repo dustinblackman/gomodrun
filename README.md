@@ -20,7 +20,7 @@ The forgotten go tool that executes and caches binaries included in go.mod files
   # Specifiy alternative root directory containing a go.mod and tools file.
   gomodrun -r ./alternative-tools-dir golangci-lint run
 
-  # Clean your .gomodrun folder of unused binarnies.
+  # Clean your .gomodrun folder of unused binaries.
   gomodrun --tidy
 ```
 
