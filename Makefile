@@ -31,7 +31,6 @@ test: ginkgo
 	@make build && rm gomodrun
 
 test-coverage:
-	gomodrun ginkgo -v -r -race -cover -coverprofile=coverage.txt -covermode=atomic -outputdir=. .
+	gomodrun ginkgo -v -r -cover -coverprofile=coverage.txt -covermode=atomic -outputdir=. .
 	@go tool cover -func=coverage.txt
 	@make build && rm -f gomodrun
-	@if [ "$$COVERALLS_TOKEN" != "" ]; then gomodrun goveralls -coverprofile=coverage.txt -service=travis-ci -repotoken $$COVERALLS_TOKEN; fi;

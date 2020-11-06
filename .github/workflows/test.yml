@@ -1,0 +1,75 @@
+on: [push, pull_request]
+name: Test
+jobs:
+  test:
+    strategy:
+      matrix:
+        go-version: [1.15.x]
+        # Enable windows later.
+        # os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Install Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: ${{ matrix.go-version }}
+
+    - name: Setup ENV
+      run: |
+        echo "ACTIONS_RUNNER_OS=${{ runner.os }}" >> $GITHUB_ENV
+        echo "GOPATH=$(go env GOPATH)" >> $GITHUB_ENV
+
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install gomodrun
+      shell: bash
+      run: |
+        GOMODRUN_VERSION=$(cat VERSION)
+        OS_NAME="$ACTIONS_RUNNER_OS"
+
+        if [[ "$OS_NAME" == "macOS" ]]; then
+          OS_NAME="darwin"
+        elif [[ "$OS_NAME" == "Windows" ]]; then
+          OS_NAME="windows"
+        else
+          OS_NAME="linux"
+        fi
+
+        mkdir -p "$GOPATH/bin/"
+        if [[ "$OS_NAME" == "windows" ]]; then
+          choco install -y make busybox
+          curl -L -o "$HOME/gomodrun.zip" "https://github.com/dustinblackman/gomodrun/releases/download/v${GOMODRUN_VERSION}/gomodrun_${GOMODRUN_VERSION}_${OS_NAME}_amd64.zip"
+          busybox unzip -d "$GOPATH/bin/" "$HOME/gomodrun.zip"
+        else
+          curl -L "https://github.com/dustinblackman/gomodrun/releases/download/v${GOMODRUN_VERSION}/gomodrun_${GOMODRUN_VERSION}_${OS_NAME}_amd64.tar.gz" | tar -zxvf - -C "$GOPATH/bin/" gomodrun
+        fi
+
+    - uses: actions/cache@v2
+      with:
+        path: |
+          .gomodrun/
+          ~/go/pkg/mod
+        key: ${{ runner.os }}-gomodrun-${{ hashFiles('./go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-gomodrun-
+
+    - name: go mod download
+      run: |
+        go mod download
+        gomodrun --tidy
+
+    - name: Lint
+      if: ${{ runner.os == 'Windows' }}
+      run: make lint
+
+    - name: Test
+      shell: bash
+      run: make test-coverage
+
+    - name: Send coverage
+      uses: shogo82148/actions-goveralls@v1
+      with:
+        path-to-profile: coverage.txt
