@@ -1,6 +1,5 @@
 ![gomodrun](assets/banner.jpg)
 
-[![Build Status](https://travis-ci.org/dustinblackman/gomodrun.svg?branch=master)](https://travis-ci.org/dustinblackman/gomodrun)
 [![Release](https://img.shields.io/github/v/release/dustinblackman/gomodrun)](https://github.com/dustinblackman/gomodrun/releases)
 [![Coverage Status](https://coveralls.io/repos/github/dustinblackman/gomodrun/badge.svg?branch=master)](https://coveralls.io/github/dustinblackman/gomodrun?branch=master)
 [![Go Report Card](http://goreportcard.com/badge/dustinblackman/gomodrun)](http://goreportcard.com/report/dustinblackman/gomodrun)
