@@ -23,6 +23,7 @@ release: lint test
 	git push
 	git push --tags
 	gomodrun goreleaser --rm-dist
+	.github/nur.sh "$$(cat VERSION)" "$$(realpath dist)"
 
 release-snapshot:
 	gomodrun goreleaser --snapshot --skip-publish --rm-dist
