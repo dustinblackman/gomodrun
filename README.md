@@ -33,12 +33,6 @@ The forgotten go tool that executes and caches binaries included in go.mod files
 brew install dustinblackman/tap/gomodrun
 ```
 
-**snapcraft** (Linux):
-
-```sh
-$ sudo snap install gomodrun
-```
-
 **scoop** (Windows):
 
 ```sh
@@ -46,11 +40,16 @@ $ scoop bucket add dustinblackman https://github.com/dustinblackman/scoop-bucket
 $ scoop install gomodrun
 ```
 
-**deb/rpm** (Linux):
+**deb/rpm/apk** (Linux):
 
-Download the `.deb` or `.rpm` from the [releases page](https://github.com/dustinblackman/gomodrun/releases) and
-install with `dpkg -i` and `rpm -i` respectively.
+Download the `.deb`, `.rpm` or `.apk` from the [releases page](https://github.com/dustinblackman/fetch-hls/releases) and
+install with `dpkg -i`, `rpm -i`, or `apk add --allow-untrusted` respectively.
 
+**nix** (Linux):
+
+```sh
+nix-env -f '<nixpkgs>' -iA nur.repos.dustinblackman.gomodrun
+```
 
 **manually**:
 

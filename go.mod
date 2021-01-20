@@ -5,13 +5,13 @@ go 1.14
 require (
 	github.com/dustinblackman/go-hello-world-test v0.0.2
 	github.com/dustinblackman/go-hello-world-test-no-gomod v0.0.2
-	github.com/fatih/color v1.9.0
-	github.com/golangci/golangci-lint v1.30.0
-	github.com/goreleaser/goreleaser v0.141.0
+	github.com/fatih/color v1.10.0
+	github.com/golangci/golangci-lint v1.35.2
+	github.com/goreleaser/goreleaser v0.155.0
 	github.com/mattn/goveralls v0.0.2
 	github.com/novln/macchiato v1.0.1
-	github.com/onsi/ginkgo v1.13.0
-	github.com/onsi/gomega v1.10.1
+	github.com/onsi/ginkgo v1.14.1
+	github.com/onsi/gomega v1.10.2
 	github.com/otiai10/copy v1.0.2
 	github.com/sirkon/goproxy v1.4.8
 )
