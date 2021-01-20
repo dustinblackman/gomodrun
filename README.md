@@ -42,7 +42,7 @@ $ scoop install gomodrun
 
 **deb/rpm/apk** (Linux):
 
-Download the `.deb`, `.rpm` or `.apk` from the [releases page](https://github.com/dustinblackman/fetch-hls/releases) and
+Download the `.deb`, `.rpm` or `.apk` from the [releases page](https://github.com/dustinblackman/gomodrun/releases) and
 install with `dpkg -i`, `rpm -i`, or `apk add --allow-untrusted` respectively.
 
 **nix** (Linux):
