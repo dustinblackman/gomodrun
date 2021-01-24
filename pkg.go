@@ -18,6 +18,7 @@ import (
 	"runtime"
 	"strings"
 	"syscall"
+	"unicode"
 
 	"github.com/otiai10/copy"
 )
@@ -68,12 +69,12 @@ func GetCommandVersionedPkgPath(pkgRoot, binName string) (string, error) {
 	versionedDepMatcher := regexp.MustCompile(`/v\d$`)
 	binModulePath := ""
 	for _, modulePath := range pkg.Imports {
-		if strings.HasSuffix(modulePath, binName) {
+		if path.Base(modulePath) == binName {
 			binModulePath = modulePath
 			break
 		}
 
-		if versionedDepMatcher.MatchString(modulePath) && strings.HasSuffix(path.Dir(modulePath), binName) {
+		if versionedDepMatcher.MatchString(modulePath) && path.Base(path.Dir(modulePath)) == binName {
 			binModulePath = modulePath
 			break
 		}
@@ -127,7 +128,17 @@ func GetCachedBin(pkgRoot, binName, cmdPath string) (string, error) {
 		if goPath == "" {
 			goPath = build.Default.GOPATH
 		}
-		moduleBinSrcPath := path.Join(goPath, "pkg", "mod", cmdPath)
+
+		goModCmdPathVariant := ""
+		for _, r := range cmdPath {
+			if unicode.IsUpper(r) && unicode.IsLetter(r) {
+				goModCmdPathVariant += "!" + string(unicode.ToLower(r))
+			} else {
+				goModCmdPathVariant += string(r)
+			}
+		}
+
+		moduleBinSrcPath := path.Join(goPath, "pkg", "mod", goModCmdPathVariant)
 		if _, err := os.Stat(moduleBinSrcPath); os.IsNotExist(err) {
 			return "", fmt.Errorf("module %s not downloaded. Run `go mod download`", cmdPath)
 		}
@@ -141,7 +152,7 @@ func GetCachedBin(pkgRoot, binName, cmdPath string) (string, error) {
 		}
 
 		if _, err := os.Stat(path.Join(moduleSrcRoot, "go.mod")); os.IsNotExist(err) {
-			pkgName := strings.Split(strings.Split(moduleSrcRoot, "pkg/mod/")[1], "@")[0]
+			pkgName := strings.Split(strings.Split(strings.ReplaceAll(moduleSrcRoot, "!", ""), "pkg/mod/")[1], "@")[0]
 			tempDir, err := ioutil.TempDir("", binName)
 			if err != nil {
 				return "", err
