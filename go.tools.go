@@ -9,4 +9,5 @@ import (
 	_ "github.com/goreleaser/goreleaser"
 	_ "github.com/mattn/goveralls"
 	_ "github.com/onsi/ginkgo/ginkgo"
+	_ "mvdan.cc/gofumpt"
 )

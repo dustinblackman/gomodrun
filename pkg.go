@@ -81,7 +81,7 @@ func GetCommandVersionedPkgPath(pkgRoot, binName string) (string, error) {
 	}
 
 	if binModulePath == "" {
-		return "", errors.New("cant find bin in tools file")
+		return "", fmt.Errorf("cant find bin %s in tools file", binName)
 	}
 
 	mod, err := getGoMod(pkgRoot)
@@ -163,7 +163,7 @@ func GetCachedBin(pkgRoot, binName, cmdPath string) (string, error) {
 				return "", err
 			}
 
-			err = os.Chmod(tempDir, 0777)
+			err = os.Chmod(tempDir, 0o777)
 			if err != nil {
 				return "", err
 			}

@@ -14,6 +14,7 @@ require (
 	github.com/onsi/gomega v1.10.2
 	github.com/otiai10/copy v1.0.2
 	github.com/sirkon/goproxy v1.4.8
+	mvdan.cc/gofumpt v0.1.0
 )
 
 replace github.com/novln/macchiato => github.com/dustinblackman/macchiato v0.0.0-20200814125024-987bc68e2aec
