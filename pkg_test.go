@@ -13,8 +13,10 @@ import (
 	"github.com/dustinblackman/gomodrun"
 )
 
-const testPackage string = "github.com/dustinblackman/go-hello-world-test@v0.0.2/hello-world"
-const testPackageNoGoMod string = "github.com/dustinblackman/go-hello-world-test-no-gomod@v0.0.2/hello-world-no-gomod"
+const (
+	testPackage        string = "github.com/dustinblackman/go-hello-world-test@v0.0.2/hello-world"
+	testPackageNoGoMod string = "github.com/dustinblackman/go-hello-world-test-no-gomod@v0.0.2/hello-world-no-gomod"
+)
 
 func formatForOS(pkgPath string) string {
 	if runtime.GOOS == "windows" {
@@ -75,7 +77,7 @@ var _ = Describe("pkg", func() {
 		It("should throw an error when it cant find specified bin in imports", func() {
 			cmdPath, err := gomodrun.GetCommandVersionedPkgPath(cwd, "not-real")
 			Expect(err).ToNot(BeNil())
-			Expect(strings.Contains(err.Error(), "cant find bin in tools file")).To(BeTrue())
+			Expect(strings.Contains(err.Error(), "cant find bin not-real in tools file")).To(BeTrue())
 			Expect(cmdPath).To(Equal(""))
 		})
 
