@@ -1,6 +1,6 @@
 module github.com/dustinblackman/gomodrun
 
-go 1.14
+go 1.18
 
 require (
 	github.com/dustinblackman/go-hello-world-test v0.0.2
