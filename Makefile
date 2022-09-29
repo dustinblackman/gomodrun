@@ -24,7 +24,9 @@ release:
 	git push --tags
 	gomodrun goreleaser --rm-dist
 	.github/apt.sh "$$(cat VERSION)" "$$(realpath dist)"
+	.github/choco.sh "$$(cat VERSION)" "$$(realpath dist)"
 	.github/nur.sh "$$(cat VERSION)" "$$(realpath dist)"
+	.github/yum.sh "$$(cat VERSION)" "$$(realpath dist)"
 
 release-snapshot:
 	gomodrun goreleaser --snapshot --skip-publish --rm-dist

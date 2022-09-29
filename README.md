@@ -24,41 +24,61 @@ The forgotten go tool that executes and caches binaries included in go.mod files
   gomodrun --tidy
 ```
 
-## Installation
+## Install
 
-
-**homebrew** (OSX / Linux):
-
-```sh
-brew install dustinblackman/tap/gomodrun
-```
-
-**scoop** (Windows):
+### MacOS
 
 ```sh
-$ scoop bucket add dustinblackman https://github.com/dustinblackman/scoop-bucket.git
-$ scoop install gomodrun
+brew install dustinblackman/tab/gomodrun
 ```
 
-**deb/rpm/apk** (Linux):
+### Debian / Ubuntu
 
-Download the `.deb`, `.rpm` or `.apk` from the [releases page](https://github.com/dustinblackman/gomodrun/releases) and
-install with `dpkg -i`, `rpm -i`, or `apk add --allow-untrusted` respectively.
+```sh
+curl -s https://dustinblackman.github.io/apt/deb/KEY.gpg | apt-key add -
+curl -s https://dustinblackman.github.io/apt/deb/dustinblackman.list > /etc/apt/sources.list.d/dustinblackman.list
+sudo apt-get update
+sudo apt-get install gomodrun
+```
 
-**nix** (Linux):
+### Fedora / CentOS
+
+```sh
+yum-config-manager --add-repo https://dustinblackman.github.io/yum/config.repo
+yum install gomodrun
+```
+
+### Nix
 
 ```sh
 nix-env -f '<nixpkgs>' -iA nur.repos.dustinblackman.gomodrun
 ```
 
-**manually**:
+### Windows
 
-Download the pre-compiled binaries from the [releases page](https://github.com/dustinblackman/gomodrun/releases) and
+__Chocolatey__
+
+<!-- choco-install start -->
+```sh
+choco install gomodrun --version=0.4.5
+```
+<!-- choco-install end -->
+
+__Scoop__
+
+```sh
+scoop bucket add dustinblackman https://github.com/dustinblackman/scoop-bucket.git
+scoop install gomodrun
+```
+
+### Manual
+
+Download the pre-compiled binaries and packages from the [releases page](https://github.com/dustinblackman/gomodrun/releases) and
 copy to the desired location.
 
-**go/master branch:**
+### Source
 
-```
+```sh
 go get -u github.com/dustinblackman/gomodrun/cmd/gomodrun
 ```
 
