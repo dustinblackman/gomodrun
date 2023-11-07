@@ -26,56 +26,6 @@ The forgotten go tool that executes and caches binaries included in go.mod files
 
 ## Install
 
-### MacOS
-
-```sh
-brew install dustinblackman/tab/gomodrun
-```
-
-### Debian / Ubuntu
-
-```sh
-curl -s https://apt.dustinblackman.com/KEY.gpg | apt-key add -
-curl -s https://apt.dustinblackman.com/dustinblackman.list > /etc/apt/sources.list.d/dustinblackman.list
-sudo apt-get update
-sudo apt-get install gomodrun
-```
-
-### Fedora / CentOS
-
-```sh
-dnf config-manager --add-repo https://yum.dustinblackman.com/config.repo
-dnf install gomodrun
-```
-
-### Nix
-
-```sh
-nix-env -f '<nixpkgs>' -iA nur.repos.dustinblackman.gomodrun
-```
-
-### Windows
-
-__Chocolatey__
-
-<!-- choco-install start -->
-```sh
-choco install gomodrun --version=0.4.5
-```
-<!-- choco-install end -->
-
-__Scoop__
-
-```sh
-scoop bucket add dustinblackman https://github.com/dustinblackman/scoop-bucket.git
-scoop install gomodrun
-```
-
-### Manual
-
-Download the pre-compiled binaries and packages from the [releases page](https://github.com/dustinblackman/gomodrun/releases) and
-copy to the desired location.
-
 ### Source
 
 ```sh
