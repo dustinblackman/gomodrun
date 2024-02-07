@@ -29,7 +29,9 @@ The forgotten go tool that executes and caches binaries included in go.mod files
 ### Source
 
 ```sh
-go get -u github.com/dustinblackman/gomodrun/cmd/gomodrun
+curl -L "https://github.com/dustinblackman/gomodrun/archive/refs/heads/master.tar.gz" | tar zxvf - -C /tmp
+cd /tmp/gomodrun-master/cmd/gomodrun
+go install .
 ```
 
 ## Usage
