@@ -4,3 +4,4 @@ gomodrun
 dist/
 cmd/gomodrun/dist/
 coverage.txt
+.idea/
