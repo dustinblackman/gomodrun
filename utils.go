@@ -11,16 +11,21 @@ import (
 	"path"
 	"strings"
 
-	"github.com/sirkon/goproxy/gomod"
+	"golang.org/x/mod/modfile"
+	"golang.org/x/mod/module"
 )
 
-func getGoMod(root string) (*gomod.Module, error) {
+func getGoMod(root string) (*modfile.File, error) {
 	gomodPath := path.Join(root, "go.mod")
 	data, err := ioutil.ReadFile(gomodPath)
 	if err != nil {
 		return nil, err
 	}
-	mod, err := gomod.Parse(gomodPath, data)
+
+	mod, err := modfile.Parse("go.mod", data, func(_, v string) (string, error) {
+		return module.CanonicalVersion(v), nil
+	})
+
 	if err != nil {
 		return nil, err
 	}

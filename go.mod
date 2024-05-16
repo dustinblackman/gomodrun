@@ -8,7 +8,7 @@ require (
 	github.com/onsi/ginkgo v1.16.5
 	github.com/onsi/gomega v1.33.1
 	github.com/otiai10/copy v1.0.2
-	github.com/sirkon/goproxy v1.4.8
+	golang.org/x/mod v0.17.0
 )
 
 require (
@@ -18,7 +18,6 @@ require (
 	github.com/mattn/go-colorable v0.1.8 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/nxadm/tail v1.4.8 // indirect
-	github.com/stretchr/testify v1.8.0 // indirect
 	golang.org/x/net v0.24.0 // indirect
 	golang.org/x/sys v0.19.0 // indirect
 	golang.org/x/text v0.14.0 // indirect

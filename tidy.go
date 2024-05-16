@@ -121,9 +121,9 @@ func Tidy(pkgRoot string) error {
 
 	versionedImports := []string{}
 	for _, modulePath := range pkg.Imports {
-		for importPath, version := range mod.Require {
-			if strings.HasPrefix(modulePath, importPath) {
-				versionedImports = append(versionedImports, importPath+"@"+version)
+		for _, req := range mod.Require {
+			if strings.HasPrefix(modulePath, req.Mod.Path) {
+				versionedImports = append(versionedImports, req.Mod.Path+"@"+req.Mod.Version)
 				break
 			}
 		}

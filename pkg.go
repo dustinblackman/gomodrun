@@ -90,9 +90,9 @@ func GetCommandVersionedPkgPath(pkgRoot, binName string) (string, error) {
 	}
 
 	cmdPath := ""
-	for importPath, version := range mod.Require {
-		if strings.HasPrefix(binModulePath, importPath) {
-			cmdPath = path.Join(importPath+"@"+version, strings.ReplaceAll(binModulePath, importPath, ""))
+	for _, req := range mod.Require {
+		if strings.HasPrefix(binModulePath, req.Mod.Path) {
+			cmdPath = path.Join(req.Mod.Path+"@"+req.Mod.Version, strings.ReplaceAll(binModulePath, req.Mod.Path, ""))
 			break
 		}
 	}
