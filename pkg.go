@@ -140,7 +140,12 @@ func GetCachedBin(pkgRoot, binName, cmdPath string) (string, error) {
 
 		moduleBinSrcPath := path.Join(goPath, "pkg", "mod", goModCmdPathVariant)
 		if _, err := os.Stat(moduleBinSrcPath); os.IsNotExist(err) {
-			return "", fmt.Errorf("module %s not downloaded. Run `go mod download`", cmdPath)
+			download := exec.Command("go", "mod", "download")
+			download.Dir = pkgRoot
+			err = download.Run()
+			if err != nil {
+				return "", err
+			}
 		}
 
 		moduleSrcRoot := moduleBinSrcPath
